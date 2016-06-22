@@ -1,39 +1,39 @@
 ﻿// adapted from https://github.com/josephschmitt/Clamp.js for AngularJS
-app.directive("textClamp", ['$log', '$window',
+app.directive("textClamp", ['$window',
 
-function ($log, $window) {
+function ($window) {
     var opt = {
         splitOnChars: ['.', '-', '–', '—', ' '] //Split on sentences (periods), hypens, en-dashes, em-dashes, and words (spaces).
     };
 
     /**
-     * Return the current style for an element. Shim for IE
+     * Return the current style for an element.
      * @param {HTMLElement} elem The element to compute.
      * @param {string} prop The style property.
      * @returns {number}
      */
-    function computeStyle(elem, prop) {
-        if (!$window.getComputedStyle) {
-            $window.getComputedStyle = function (el, pseudo) {
-                this.el = el;
-                this.getPropertyValue = function (prop) {
-                    var re = /(\-([a-z]){1})/g;
-                    if (prop === 'float') {
-                        prop = 'styleFloat';
-                    }
-                    if (re.test(prop)) {
-                        prop = prop.replace(re, function () {
-                            return arguments[2].toUpperCase();
-                        });
-                    }
-                    return el.currentStyle && el.currentStyle[prop] ? el.currentStyle[prop] : null;
-                };
-                return this;
-            };
-        }
+     function computeStyle(elem, prop) {
+    //     if (!$window.getComputedStyle) {
+    //         $window.getComputedStyle = function (el, pseudo) {
+    //             this.el = el;
+    //             this.getPropertyValue = function (prop) {
+    //                 var re = /(\-([a-z]){1})/g;
+    //                 if (prop === 'float') {
+    //                     prop = 'styleFloat';
+    //                 }
+    //                 if (re.test(prop)) {
+    //                     prop = prop.replace(re, function () {
+    //                         return arguments[2].toUpperCase();
+    //                     });
+    //                 }
+    //                 return el.currentStyle && el.currentStyle[prop] ? el.currentStyle[prop] : null;
+    //             };
+    //             return this;
+    //         };
+    //     }
 
-        return $window.getComputedStyle(elem, null).getPropertyValue(prop);
-    }
+         return $window.getComputedStyle(elem, null).getPropertyValue(prop);
+     }
 
     /**
      * Returns the maximum number of lines of text that should be rendered based
@@ -179,10 +179,10 @@ function ($log, $window) {
                 }
 
                 var height = getMaxHeight(el[0], clampValue);
-                $log.log('gonna go?', height, el[0].clientHeight, height <= el[0].clientHeight);
+                //$log.log('gonna go?', height, el[0].clientHeight, height <= el[0].clientHeight);
                 if (height <= el[0].clientHeight) {
                     reset();
-                    $log.log('here we go', el[0], getLastChild(el[0]), height);
+                    //$log.log('here we go', el[0], getLastChild(el[0]), height);
                     truncate(el[0], getLastChild(el[0]), height);
                 }
             }
