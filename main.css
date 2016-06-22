@@ -1,0 +1,9 @@
+﻿body{
+	background: #333;
+	color: #fff;
+}
+
+p {
+	width: 200px;
+	border: 2px solid lime;
+}
