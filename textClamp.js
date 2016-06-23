@@ -1,7 +1,5 @@
 ﻿// adapted from https://github.com/josephschmitt/Clamp.js for AngularJS
-app.directive("textClamp", ['$window',
-
-function ($window) {
+app.directive("textClamp", function ($window, $log) {
 
 	var opt = {
 		//Split on sentences (periods), hypens, en-dashes, em-dashes, and words (spaces).
@@ -9,6 +7,7 @@ function ($window) {
 	};
 
 	return {
+		restrict: 'A',
 		link: function (scope, el, attrs) {
 			var clampValue = attrs.textClamp,
 				isCSSValue = clampValue.indexOf && (clampValue.indexOf('px') > -1 || clampValue.indexOf('em') > -1);
@@ -22,10 +21,12 @@ function ($window) {
 				}
 
 				var height = getMaxHeight(el[0], clampValue);
-				//$log.log('gonna go?', height, el[0].clientHeight, height <= el[0].clientHeight);
+				$log.log('gonna go? ', 'height = ', height, 'el[0].clientHeight = ', el[0].clientHeight, 'height <= el[0].clientHeight = ', height <= el[0].clientHeight);
 				if (height <= el[0].clientHeight) {
 					reset();
-					//$log.log('here we go', el[0], getLastChild(el[0]), height);
+					$log.log('here we go', el[0], getLastChild(el[0]), height);
+					$log.log(getLastChild(el[0]));
+					window.z = getLastChild(el[0]);
 					truncate(el[0], getLastChild(el[0]), height);
 				}
 			}
@@ -169,4 +170,4 @@ function ($window) {
 	}
 
 
-}]);
+});
